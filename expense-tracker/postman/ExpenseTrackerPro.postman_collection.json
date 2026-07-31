@@ -1,0 +1,58 @@
+{
+  "info": {
+    "name": "ExpenseTracker Pro API",
+    "description": "REST API collection for ExpenseTracker Pro. Set the {{baseUrl}} and {{accessToken}} collection variables after logging in.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api" },
+    { "key": "accessToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        { "name": "Register", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/auth/register", "body": { "mode": "raw", "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"jane@example.com\",\n  \"password\": \"secret123\"\n}" } } },
+        { "name": "Login", "request": { "method": "POST", "header": [{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/auth/login", "body": { "mode": "raw", "raw": "{\n  \"email\": \"jane@example.com\",\n  \"password\": \"secret123\"\n}" } } },
+        { "name": "Get Profile", "request": { "method": "GET", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/auth/profile" } },
+        { "name": "Update Profile", "request": { "method": "PUT", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/auth/profile", "body": { "mode": "raw", "raw": "{\n  \"name\": \"Jane Updated\",\n  \"currency\": \"USD\"\n}" } } },
+        { "name": "Change Password", "request": { "method": "PUT", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/auth/change-password", "body": { "mode": "raw", "raw": "{\n  \"currentPassword\": \"secret123\",\n  \"newPassword\": \"newSecret456\"\n}" } } },
+        { "name": "Logout", "request": { "method": "POST", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/auth/logout" } },
+        { "name": "Refresh Token", "request": { "method": "POST", "url": "{{baseUrl}}/auth/refresh" } }
+      ]
+    },
+    {
+      "name": "Expenses",
+      "item": [
+        { "name": "Get Expenses", "request": { "method": "GET", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/expenses?page=1&limit=10" } },
+        { "name": "Create Expense", "request": { "method": "POST", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/expenses", "body": { "mode": "raw", "raw": "{\n  \"title\": \"Groceries\",\n  \"amount\": 54.5,\n  \"category\": \"Food\",\n  \"date\": \"2026-07-01\",\n  \"paymentMethod\": \"Card\"\n}" } } },
+        { "name": "Update Expense", "request": { "method": "PUT", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/expenses/:id", "body": { "mode": "raw", "raw": "{\n  \"amount\": 60\n}" } } },
+        { "name": "Delete Expense", "request": { "method": "DELETE", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/expenses/:id" } }
+      ]
+    },
+    {
+      "name": "Income",
+      "item": [
+        { "name": "Get Income", "request": { "method": "GET", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/income" } },
+        { "name": "Create Income", "request": { "method": "POST", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/income", "body": { "mode": "raw", "raw": "{\n  \"source\": \"Monthly Salary\",\n  \"amount\": 4200,\n  \"category\": \"Salary\",\n  \"date\": \"2026-07-01\"\n}" } } },
+        { "name": "Update Income", "request": { "method": "PUT", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/income/:id", "body": { "mode": "raw", "raw": "{\n  \"amount\": 4300\n}" } } },
+        { "name": "Delete Income", "request": { "method": "DELETE", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/income/:id" } }
+      ]
+    },
+    {
+      "name": "Budget",
+      "item": [
+        { "name": "Get Budgets", "request": { "method": "GET", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/budget?month=7&year=2026" } },
+        { "name": "Create Budget", "request": { "method": "POST", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/budget", "body": { "mode": "raw", "raw": "{\n  \"category\": \"Food\",\n  \"limit\": 400,\n  \"month\": 7,\n  \"year\": 2026\n}" } } },
+        { "name": "Update Budget", "request": { "method": "PUT", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"},{"key":"Content-Type","value":"application/json"}], "url": "{{baseUrl}}/budget/:id", "body": { "mode": "raw", "raw": "{\n  \"limit\": 450\n}" } } },
+        { "name": "Delete Budget", "request": { "method": "DELETE", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/budget/:id" } }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        { "name": "Get Summary", "request": { "method": "GET", "header": [{"key":"Authorization","value":"Bearer {{accessToken}}"}], "url": "{{baseUrl}}/dashboard" } }
+      ]
+    }
+  ]
+}

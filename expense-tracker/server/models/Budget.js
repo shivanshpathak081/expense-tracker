@@ -1,0 +1,24 @@
+import mongoose from 'mongoose';
+
+const budgetSchema = new mongoose.Schema(
+  {
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true, index: true },
+    category: {
+      type: String,
+      required: true,
+      enum: [
+        'Food', 'Transport', 'Housing', 'Utilities', 'Entertainment',
+        'Health', 'Shopping', 'Education', 'Travel', 'Other',
+      ],
+    },
+    limit: { type: Number, required: [true, 'Budget limit is required'], min: 0 },
+    month: { type: Number, required: true, min: 1, max: 12 },
+    year: { type: Number, required: true },
+    alertThreshold: { type: Number, default: 80 }, // percentage
+  },
+  { timestamps: true }
+);
+
+budgetSchema.index({ user: 1, category: 1, month: 1, year: 1 }, { unique: true });
+
+export default mongoose.model('Budget', budgetSchema);
