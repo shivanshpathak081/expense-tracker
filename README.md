@@ -248,7 +248,7 @@ Import [`postman/ExpenseTrackerPro.postman_collection.json`](./postman/ExpenseTr
 5. Deploy — Render gives you a public URL like `https://your-api.onrender.com`.
 
 ### Frontend → Vercel
-1. In Vercel, **Import Project**, set the root directory to `client`.
+1. In Vercel, **Import Project**, set the root directory to `server/client`.
 2. Framework preset: **Vite**. Build command: `npm run build`. Output directory: `dist`.
 3. Add `VITE_API_URL` pointing at your Render backend URL + `/api`.
 4. Deploy.

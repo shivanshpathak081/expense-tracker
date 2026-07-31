@@ -8,10 +8,13 @@ node_modules/
 .env.production
 server/.env
 client/.env
+server/client/.env
 
 # Build output
 client/dist/
 client/build/
+server/client/dist/
+server/client/build/
 
 # Logs
 *.log
