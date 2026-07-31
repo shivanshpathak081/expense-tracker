@@ -15,9 +15,28 @@ connectDB();
 
 const app = express();
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  process.env.CLIENT_URL,
+  'https://expense-tracker-d7xdjr7un-rishabh-2861.vercel.app',
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin(origin, callback) {
+      let hostname = '';
+      try {
+        hostname = origin ? new URL(origin).hostname : '';
+      } catch {
+        hostname = '';
+      }
+
+      if (!origin || allowedOrigins.includes(origin) || /\.vercel\.app$/.test(hostname)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked origin: ${origin}`));
+    },
     credentials: true,
   })
 );
